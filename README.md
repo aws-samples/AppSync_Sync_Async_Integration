@@ -1,4 +1,4 @@
-# AppSync_Sync_aSync_Integration
+# AppSync Sync aSync Integration
 This API converts a synchronous request coming from the client into an asynchronous request to the backend using AppSync Events.
 
 ![AppSync Events](/images/AppSync-Integration.png)
