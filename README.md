@@ -10,4 +10,4 @@ This API converts a synchronous request coming from the client into an asynchron
 5 - Upon completion of the main workflow, it makes a Post to the AppSync events API with the processing result, the post is made to the channel that was created by Lambda using the workflow execution ID \
 6 - AppSync receives the Post and sends a notification to the subscriber, which in this case is Lambda \
 7 - Lambda receives the message asynchronously, verifies if it was successful and if positive, closes the websocket connection with AppSync \
-8 - Lambda sends the response to the API Gateway that was waiting for the synchronous response. \
+8 - Lambda sends the response to the API Gateway that was waiting for the synchronous response.
