@@ -1,7 +1,7 @@
 # AppSync_Sync_aSync_Integration
 This API converts a synchronous request coming from the client into an asynchronous request to the backend using AppSync Events.
 
-![AppSync Events](https://gitlab.aws.dev/rrmarq/AppSync_Sync_aSync_Integration/-/blob/main/images/AppSync-Integration.png?ref_type=heads)
+![AppSync Events](/images/AppSync-Integration.png)
 
 1 - The API Gateway makes a synchronous request to Lambda and waits for the response.
 2 - Lambda initiates the execution of the asynchronous workflow
