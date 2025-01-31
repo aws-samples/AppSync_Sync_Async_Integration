@@ -1,0 +1,57 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Description: 'CloudFormation template for AppSync Event API with API Key authentication'
+
+Resources:
+  EventAPI:
+    Type: AWS::AppSync::Api
+    Properties:
+      Name: SyncAsyncAPI
+      EventConfig:
+        AuthProviders:
+          - AuthType: API_KEY
+        ConnectionAuthModes:
+          - AuthType: API_KEY
+        DefaultPublishAuthModes:
+          - AuthType: API_KEY
+        DefaultSubscribeAuthModes:
+          - AuthType: API_KEY
+
+  DefaultNamespace:
+    Type: AWS::AppSync::ChannelNamespace
+    Properties:
+      Name: AsyncEvents
+      ApiId: !GetAtt EventAPI.ApiId
+
+  EventAPIKey:
+    Type: AWS::AppSync::ApiKey
+    Properties:
+      ApiId: !GetAtt EventAPI.ApiId
+      Expires: 1748950672
+      Description: 'API Key for Event API'
+
+  SecretsManagerAPIKey:
+    Type: AWS::SecretsManager::Secret
+    Properties:
+      Name: 'AppSyncEventAPIKEY'
+      SecretString: !GetAtt EventAPIKey.ApiKey
+  
+
+    
+
+Outputs:
+  ApiARN:
+    Description: 'The ARN ID'
+    Value: !GetAtt EventAPI.ApiArn
+
+  AppSyncHost:
+    Description: 'The API Endpoint'
+    Value: !GetAtt EventAPI.Dns.Http
+
+  AppSyncRealTimeEndpoint:
+    Description: 'The Real-time Endpoint'
+    Value: !GetAtt EventAPI.Dns.Realtime
+
+  SecretsManagerARN:
+    Description: 'The ARN of the Secrets Manager entry'
+    Value: !Ref SecretsManagerAPIKey
+

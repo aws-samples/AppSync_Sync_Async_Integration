@@ -1,0 +1,9 @@
+.vscode
+.DS_Store
+/IaC/terraform.tfstate
+/IaC/terraform/.terraform
+/IaC/terraform/plan
+/IaC/terraform/terraform.lock.hcl
+/IaC/terraform/terraform.tfstate
+/IaC/terraform/terraform.tfstate.backup
+
