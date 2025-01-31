@@ -1,5 +1,5 @@
 resource "aws_iam_role" "lambda_iam_role" {
-    name_prefix = "LambdaStepFunctionsExecutions-"
+    name_prefix = "LambdaStepFunctionsAppSyncExecutions-"
     inline_policy {
         name = "StepFunctionsExecution"
 
@@ -117,7 +117,7 @@ resource "aws_api_gateway_rest_api" "api_gateway" {
 }
 
 resource "aws_api_gateway_resource" "events" {
-    path_part = "resource"
+    path_part = "event"
     parent_id = aws_api_gateway_rest_api.api_gateway.root_resource_id
     rest_api_id = aws_api_gateway_rest_api.api_gateway.id
 }
@@ -243,7 +243,7 @@ resource "aws_sfn_state_machine" "sfn_state_machine" {
 }
 
 resource "aws_iam_role" "iam_for_sfn" {
-  name = "stepfunctions-role"
+  name = "stepfunctions-appsync-role"
 
   assume_role_policy = <<EOF
     {
@@ -270,7 +270,7 @@ resource "aws_iam_role" "iam_for_sfn" {
     EOF
 
     inline_policy {
-        name = "CloudWatchLogGroup"
+        name = "workflow-permissions"
         policy = jsonencode({
             "Version": "2012-10-17",
             "Statement": [
@@ -343,19 +343,19 @@ resource "aws_iam_role" "iam_for_sfn" {
 }
 
 
-# Output the ARN of the Lambda function and SNS topic
+# Output the ARN of the Lambda function
 output "lambda_function_arn" {
     value = aws_lambda_function.AppSync_Sync_Async_Lambda.arn
 }
-
+# Output the ARN of the State Machine
 output "sate_machine_arn" {
     value = aws_sfn_state_machine.sfn_state_machine.arn
 }
-
+# Output the API Gateway Endpoint
 output "api_endpoint" {
     value = aws_api_gateway_stage.api_stage.invoke_url
 }
-
+# Output the ARN of the EventBridge Connection
 output "connection_arn" {
     value = aws_cloudwatch_event_connection.EventBridgeConn.arn
 }
