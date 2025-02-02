@@ -1,7 +1,8 @@
 data "aws_caller_identity" "current" {}
 
 data "aws_secretsmanager_secret" "secrets" {
-  arn = var.secret_manager_arn
+  #arn = var.secret_manager_arn
+  arn = aws_cloudformation_stack.appsync_event.outputs["SecretsManagerARN"]
 }
 
 data "aws_secretsmanager_secret_version" "current" {

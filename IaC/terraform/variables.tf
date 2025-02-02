@@ -13,18 +13,17 @@ variable "appync_namespace" {
     default = "AsyncEvents"
 }
 
-variable "AppSync_Host"{
-    type = string
-}
+#variable "AppSync_Host"{
+#    type = string
+#}
 
-variable "AppSync_Host_RealTime"{
-    type = string
+#variable "AppSync_Host_RealTime"{
+#    type = string
+#}
 
-}
-
-variable "secret_manager_arn" {
-  type = string
-}
+#variable "secret_manager_arn" {
+#  type = string
+#}
 
 locals {
     region = "us-east-1"

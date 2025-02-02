@@ -89,9 +89,9 @@ resource "aws_lambda_function" "AppSync_Sync_Async_Lambda" {
 
     environment {
     variables = {
-      API_HOST = var.AppSync_Host,
+      API_HOST = aws_cloudformation_stack.appsync_event.outputs["AppSyncHost"],
       API_KEY = "AppSyncEventAPIKEY",
-      API_URL = "wss://${var.AppSync_Host_RealTime}/event/realtime",
+      API_URL = "wss://${aws_cloudformation_stack.appsync_event.outputs["AppSyncRealTimeEndpoint"]}/event/realtime",
       STATE_MACHINE_ARN = "arn:aws:states:${local.region}:${local.account_id}:stateMachine:${var.workflow_name}"
       APPSYNC_NAMESPACE = var.appync_namespace
     }
@@ -214,7 +214,7 @@ resource "aws_sfn_state_machine" "sfn_state_machine" {
             "Type": "Task",
             "Resource": "arn:aws:states:::http:invoke",
             "Parameters": {
-                "ApiEndpoint": "https://${var.AppSync_Host}/event",
+                "ApiEndpoint": "https://${aws_cloudformation_stack.appsync_event.outputs["AppSyncHost"]}/event",
                 "Method": "POST",
                 "InvocationConfig": {
                 "ConnectionArn": "${aws_cloudwatch_event_connection.EventBridgeConn.arn}"
@@ -286,7 +286,7 @@ resource "aws_iam_role" "iam_for_sfn" {
                 "Condition": {
                     "StringEquals": {
                         "states:HTTPEndpoint": [
-                            "https://${var.AppSync_Host}/event"
+                            "https://${aws_cloudformation_stack.appsync_event.outputs["AppSyncHost"]}/event"
                         ],
                         "states:HTTPMethod": [
                             "POST"
@@ -342,6 +342,12 @@ resource "aws_iam_role" "iam_for_sfn" {
     
 }
 
+resource "aws_cloudformation_stack" "appsync_event"{
+    name = "appsync-events"
+    template_body = file("${path.module}/../cloudFormation/template.yaml")
+
+}
+
 
 # Output the ARN of the Lambda function
 output "lambda_function_arn" {
@@ -360,3 +366,14 @@ output "connection_arn" {
     value = aws_cloudwatch_event_connection.EventBridgeConn.arn
 }
 
+output "appsync_host" {
+    value = aws_cloudformation_stack.appsync_event.outputs["AppSyncHost"]
+}
+
+output "appsync_host_realtime" {
+    value = aws_cloudformation_stack.appsync_event.outputs["AppSyncRealTimeEndpoint"]
+}
+
+output "secretsmanager_arn" {
+    value = aws_cloudformation_stack.appsync_event.outputs["SecretsManagerARN"]
+}
