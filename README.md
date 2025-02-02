@@ -51,7 +51,7 @@ The following AWS resources are provisioned:
 - Credentials managed through Secrets Manager
 
 ### AppSync Events API
-- Deployed via CloudFormation template, which is in the /IaC/cloudFormation folder
+- Deployed via CloudFormation template, which is in the `/IaC/cloudFormation` folder (As of 2025-02-02, there's no AppSync Events API terraform resource available yet for creating it via terraform)
 - Real-time endpoint configuration
 - API key authentication
 
