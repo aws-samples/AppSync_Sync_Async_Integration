@@ -2,6 +2,7 @@ AWSTemplateFormatVersion: '2010-09-09'
 Description: 'CloudFormation template for AppSync Event API with API Key authentication'
 
 Resources:
+  #Creating the AppSync Events API
   EventAPI:
     Type: AWS::AppSync::Api
     Properties:
@@ -15,13 +16,14 @@ Resources:
           - AuthType: API_KEY
         DefaultSubscribeAuthModes:
           - AuthType: API_KEY
-
+  #Creating the Events API Namespace
   DefaultNamespace:
     Type: AWS::AppSync::ChannelNamespace
     Properties:
       Name: AsyncEvents
       ApiId: !GetAtt EventAPI.ApiId
-
+  
+  #Creating the Events API APIKey
   EventAPIKey:
     Type: AWS::AppSync::ApiKey
     Properties:
@@ -29,6 +31,7 @@ Resources:
       Expires: 1748950672
       Description: 'API Key for Event API'
 
+  #Creating the SecretsManager to store the APIKey
   SecretsManagerAPIKey:
     Type: AWS::SecretsManager::Secret
     Properties:
