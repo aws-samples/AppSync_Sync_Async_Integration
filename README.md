@@ -89,12 +89,12 @@ terraform init
 
 Review the planned changes:
 ```bash
-terraform plan
+terraform plan -out plan
 ```
 
 Apply the configuration:
 ```bash
-terraform plan -auto-approve
+terraform apply plan
 ```
 
 ## Outputs
