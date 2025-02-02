@@ -16,7 +16,7 @@ In order to simulate an asynchronous backend processing, we are using an asynchr
 
 # AppSync Sync/Async Integration Infrastructure
 
-This Terraform configuration creates the necessary AWS infrastructure for an AppSync integration with synchronous and asynchronous capabilities.
+This Terraform configuration located in `/IaC/terraform` folder creates the necessary AWS infrastructure for an AppSync integration with synchronous and asynchronous capabilities.
 
 ## Resources Created
 
