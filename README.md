@@ -114,6 +114,22 @@ The deployment provides several important outputs:
 
 - `secretsmanager_arn`: ARN of the created Secrets Manager secret
 
+## Execution
+After deploying the solution, you just need to send a HTTP Request:
+```
+curl --location api_endpoint`/event' \
+--header 'Content-Type: application/json' \
+--data '{
+    "nome": "Ricardo",
+    "sobrenome": "Marques"
+}'
+```
+Wait some seconds (the workflow has a wait step with 10 seconds) and receive the response:
+```
+{"id": "exec-38ecfe24-32d2-443c-813f-97d797a8a2f9", "nome completo": "Ricardo Marques"}
+```
+
+
 ## Clean Up
 To remove all created resources:
 ```bash
