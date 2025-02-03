@@ -149,5 +149,5 @@ terraform destroy -auto-approve
 
 - API authentication is handled via API keys
 
-### All assets from this repository, including code and README were created using [Amazon Q Developer](https://aws.amazon.com/q/developer/?refid=fb915ff8-831e-4689-ac53-ca3986cdfd50). It's saved me around 70% of time coding, testing and documenting. 
+### All assets from this repository, including code and README were created using [Amazon Q Developer](https://s12d.com/LWNI1UEX). It's saved me around 70% of time coding, testing and documenting. 
 ### In case you still don't know Amazon Q Developer, don't waste time, click on the above link and start today!
