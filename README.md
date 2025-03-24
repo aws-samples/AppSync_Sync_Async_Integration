@@ -82,7 +82,12 @@ The following variables should be configured:
 
 ## Deployment
 
-1. Initialize Terraform:
+Access the IaC folder:
+```bash
+cd IaC/terraform
+```
+
+Initialize Terraform:
 ```bash
 terraform init
 ```
